@@ -6,7 +6,7 @@
 <ul>
     {% for project in pages %}
     <li>
-        Title: <a href="/project/{{project.id}}">
+        Title: <a href="{% url 'project' project.id %}">
     {{project.title}}
 </a>
     </li>
