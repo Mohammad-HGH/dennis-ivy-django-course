@@ -15,10 +15,11 @@ def projects(request):
 def project(request, pk):
     projectObj = Project.objects.get(id=pk)
     tags = projectObj.tags.all()
+    alts = projectObj.slug
     return render(
         request,
         "projects/single-project.html",
-        {"projectObj": projectObj, "tags": tags},
+        {"projectObj": projectObj, "tags": tags, "alt": alts},
     )
 
 

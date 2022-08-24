@@ -1,6 +1,7 @@
 from email.policy import default
 import uuid
 from django.db import models
+from django.template.defaultfilters import slugify
 
 
 # Create your models here.
@@ -22,6 +23,7 @@ class Tag(models.Model):
 # parent
 class Project(models.Model):
     title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(null=True, blank=True)
     demo_link = models.CharField(max_length=2000, null=True, blank=True)
     source_link = models.CharField(max_length=2000, null=True, blank=True)
@@ -36,6 +38,10 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Project, self).save(*args, **kwargs)
 
 
 # 1-n relationship
