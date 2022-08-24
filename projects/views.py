@@ -14,12 +14,11 @@ def projects(request):
 
 def project(request, pk):
     projectObj = Project.objects.get(id=pk)
-    tags = projectObj.tags.all()
-    alts = projectObj.slug
+    context = {"projectObj": projectObj}
     return render(
         request,
         "projects/single-project.html",
-        {"projectObj": projectObj, "tags": tags, "alt": alts},
+        context,
     )
 
 
